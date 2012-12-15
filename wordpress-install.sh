@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # test the number of arguments
-if [ ! $# == 7 ]; then
-  echo "Usage: $0 path dbname dbuser dbpass url admin_email admin_password"
+if [ ! $# == 8 ]; then
+  echo "Usage: $0 path dbname dbuser dbpass url admin_email admin_password theme_slug"
   exit
 fi
 
@@ -16,6 +16,8 @@ DBPASS="$4"
 WP_URL="$5"
 ADMIN_EMAIL="$6"
 ADMIN_PASSWORD="$7"
+
+THEME_SLUG="$8"
 
 mkdir $WP_DIR; cd $WP_DIR
 
@@ -44,4 +46,8 @@ wp core install --url=$WP_URL --title="Your Newly WordPress" --admin_email=$ADMI
 (sudo sh -c "echo -e '\n127.0.0.1 $WP_URL' >> /etc/hosts" )
 
 # install the _s theme
+curl -d "underscoresme_generate=1&underscoresme_name=$THEME_SLUG&underscoresme_slug=&underscoresme_author=&underscoresme_author_uri=&underscoresme_description=&underscoresme_generate_submit=Generate" http://underscores.me > me.zip
 
+wp theme install me.zip 
+
+wp theme activate $THEME_SLUG
