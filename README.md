@@ -1,0 +1,1 @@
+A bash script that automates the install of WordPress using wp-cli
