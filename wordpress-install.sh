@@ -1,23 +1,36 @@
 #!/bin/bash
 
 # test the number of arguments
-if [ ! $# == 8 ]; then
-  echo "Usage: $0 path dbname dbuser dbpass url admin_email admin_password theme_slug"
+if [ ! $# == 9 ]; then
+  echo "Usage: $0 project_name path dbname dbuser dbpass url admin_email admin_password theme_slug"
   exit
 fi
 
-# directory that will hold the wordpress files and be the document root for your site
-WP_DIR="$1"
+# directory that will hold the WordPress files and be the document root for your site
+PROJECT_NAME="$1"
 
-DBNAME="$2"
-DBUSER="$3"
-DBPASS="$4"
+WP_DIR="$2"
 
-WP_URL="$5"
-ADMIN_EMAIL="$6"
-ADMIN_PASSWORD="$7"
+DBNAME="$3"
+DBUSER="$4"
+DBPASS="$5"
 
-THEME_SLUG="$8"
+WP_URL="$6"
+ADMIN_EMAIL="$7"
+ADMIN_PASSWORD="$8"
+
+THEME_SLUG="$9"
+
+# EDIT DEFAULT VALUES HERE
+: ${PROJECT_NAME:="wptest"}
+: ${WP_DIR:="/Users/nuno/Projects/".$PROJECT_NAME}
+: ${DBNAME:="$PROJECT_NAME"}
+: ${DBUSER:="user"}
+: ${DBPASS:="pass"}
+: ${WP_URL:="$PROJECT_NAME.dev"} # the url you will use when accessing this on localhost, e.g. http://wptest.dev/
+: ${ADMIN_EMAIL:="email"}
+: ${ADMIN_PASSWORD:="pass"}
+: ${THEME_SLUG:="$PROJECT_NAME"}
 
 mkdir $WP_DIR; cd $WP_DIR
 
